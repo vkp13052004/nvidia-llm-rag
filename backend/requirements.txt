@@ -1,0 +1,7 @@
+langchain
+langserve
+faiss-cpu
+gradio
+huggingface-hub
+nvidia-nim
+uvicorn

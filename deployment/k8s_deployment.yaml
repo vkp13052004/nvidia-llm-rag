@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nvidia-llm-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nvidia-llm
+  template:
+    metadata:
+      labels:
+        app: nvidia-llm
+    spec:
+      containers:
+      - name: nvidia-llm
+        image: your-dockerhub-username/nvidia-llm
+        ports:
+        - containerPort: 8000
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nvidia-llm-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: nvidia-llm
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
